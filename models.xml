@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE article SYSTEM "-//OASIS//DTD DocBook XML" [
+<!ENTITY Sum              "&#x02211;" >
+]>
+<section lang="en">
+  <title>CellML Secondary Specification - DAEs with Optional Resets</title>
+
+<section>
+  <title>Preliminary matters</title>
+  <orderedlist>
+    <listitem>
+      <para>
+        This specification is a secondary specification to the CellML 1.2 Specification, and so should be read together with the CellML 1.2 specification. It acts to further narrow the CellML 1.2 specification. Models and software implementations must comply with the CellML 1.2 specification to comply with this specification.
+      </para>
+    </listitem>
+    <listitem>
+      <para>
+        This specification additionally extends and modifies the secondary specification entitled "CellML Secondary Specification - DAEs with Optional Resets". All the rules provided in that specification apply in addition to those defined in this specification, except that where the rules in this specification conflict with the rules in the 'DAEs with Optional Resets' specification, the rules in this specification shall prevail.
+      </para>
+    </listitem>
+    <listitem>
+      <para>
+        The rules provided in this specification are against the MathML 3 Strict form; the rules in this document apply to content MathML after all possible transformations to strict MathML defined in the MathML 3 specification have been applied.
+      </para>
+    </listitem>
+
+    <listitem>
+      <para>
+        Except where stated otherwise, references to variables in this specification refer to model variables, and not to individual variable element information items.
+      </para>
+    </listitem>
+  </orderedlist>
+</section>
+
+<section>
+  <title>Requirements for compliant models</title>
+  <orderedlist>
+    <listitem>
+      <para>
+        Every child of a math element information item in the MathML namespace must either comply with one of the two rules it is required to comply with according to the DAEs with Optional Resets specification, or with the following rule:
+        <orderedlist>
+          <listitem>
+            <para>The child of the MathML math element information item is an apply element information item, and the first MathML element information item child of that apply element is the sampleFromDistribution symbol from the uncertainty1 content dictionary, as defined in <xref linkend="uncertainty-cd"/>. In this case, the first argument of the sampleFromDistribution shall either:
+            <orderedlist>
+              <listitem>
+                <para>be a ci reference to a variable, or,</para>
+              </listitem>
+              <listitem>
+                <para>be an application of the evaluatedAt operator in a manner consistant with the DAEs with Optional Resets specification, or,</para>
+              </listitem>
+              <listitem>
+                <para>be an application of the vector constructor in content dictionary linalg2, such that each element of the vector is compliant with one of the above two options.</para>
+              </listitem>
+            </orderedlist>
+            The second argument of the sampleFromDistribution application shall be a distribution specification consistent with the rules in <xref linkend="distribution-rules"/>. Where the first argument is an application of the vector constructor, the second argument must describe the distribution of a vector; when the first argument is a ci reference or an evaluatedAt application, the second argument must describe the distribution of a real number.
+            </para>
+          </listitem>
+        </orderedlist>
+      </para>
+    </listitem>
+    <listitem>
+      <para>
+        In addition to the two types of real constraint equation defined in the DAEs with Optional Resets specification, every application of sampleFromDistribution shall be treated as a real constraint equation, except that in the case that the first operand of the sampleFromDistribution operator is a vector constructor, it shall be treated as one real constraint equation for each element of the vector.
+      </para>
+    </listitem>
+    <listitem>
+      <para>
+        In addition to the variable references that may appear in low complexity subset expressions according to the DAEs with Optional Resets specification, variables which appear as the first operand of a sampleFromDistribution operand, including variable references inside a vector constructor in the sampleFromDistribution operand, but excluding variable references inside an evaluatedAt application, may be referenced in low complexity subset expressions. It must be possible to place the expression into the non-negative levels defined for low complexity subset expressions such that the level of any variables used to define the expression are assigned a lower level.
+      </para>
+    </listitem>
+  </orderedlist>
+</section>
+
+<section id="distribution-rules">
+  <title>Rules for the specification of distributions</title>
+  A distribution must be specified in one of the following ways:
+  <orderedlist>
+    <listitem><para>Through the application of the distributionFromPDF symbol from the content dictionary uncertainty1, where the operand is a binding using the lambda symbol from the fns1 content dictionary, with one bound variable; the bound expression must be a valid real-valued low complexity subset expression that only uses the bound variable and low complexity subset variables that have been assigned a lower level. The definite integral of the function over bound variable values between minus infinity and infinity must be one, and the function must be defined and non-negative for any value in that range.</para></listitem>
+    <listitem><para>Through the application of the distributionFromPMF symbol from the content dictionary uncertainty1, where the operand is a binding using the lambda symbol from the fns1 content dictionary, with one bound variable; the bound expression must be a valid real-valued low complexity subset expression that only uses the bound variable and low complexity subset variables that have been assigned a lower level. The sum of the function values over bound variable values between minus infinity and infinity must be one, and the function must be defined and non-negative for any value in that range.</para></listitem>
+    <listitem><para>Through the application of the distributionFromRealisations symbol from the content dictionary uncertainty1, where the operand is either a valid real-valued low complexity subset expression, or an application of the vector constructor vector from content dictionary vector2, where each operand of vector is a valid real-valued low complexity subset expression.</para></listitem>
+  </orderedlist>
+</section>
+
+<section id="uncertainty-cd">
+  <title>The uncertainty content dictionary</title>
+  <orderedlist>
+    <listitem>
+      <para>
+This section defines the content dictionary uncertainty1. This section merely provides definitions of the symbols in the content dictionary. To be compliant with this specification, models must only use symbols from this content dictionary in ways specified elsewhere in this specification.
+      </para>
+    </listitem>
+
+    <listitem>
+      <para>
+The sampleFromDistribution symbol is a binary operator that relates a random variable, the first operand, to its distribution, the second operand. The random variable may be a scalar or a vector.
+      </para>
+    </listitem>
+
+    <listitem>
+      <para>
+The distributionFromPDF symbol is a unary operator that describes a distribution using a probability density function. It takes as its only operand a function of one variable (which may be vector or scalar). The function should be non-negative for all values in its domain, and the integral over its domain should be equal to one. The result is a probability distribution for a random variable which may take values on the domain of the function, with the probability density function specified by the function.
+      </para>
+    </listitem>
+
+    <listitem>
+      <para>
+The distributionFromPMF symbol is a unary operator that describes a distribution using a probability mass function. It takes as its only operand a function of one variable (which may be vector or scalar). The function should be non-negative for all values in its domain, and the sum over its domain should be equal to one. The result is a probability distribution for a random variable which may take values on the domain of the function, with the probability mass function specified by the function.
+      </para>
+    </listitem>
+
+    <listitem>
+      <para>
+The distributionFromRealisations symbol is a unary operator that partially describes a distribution by using a series of samples (realisations) from the true distribution. It takes as its only operand a finite list, describing the realisations. The list shall be such that one of the following applies:
+        <orderedlist>
+          <listitem>
+            <para>
+              All members of the list shall be vectors of real numbers, and the length of all the vectors shall be the same, or,
+            </para>
+          </listitem>
+          <listitem>
+            <para>
+              All members of the list shall be real numbers.
+            </para>
+          </listitem>
+        </orderedlist>
+      </para>
+    </listitem>
+  </orderedlist>
+</section>
+
+</section>

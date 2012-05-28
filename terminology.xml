@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE article SYSTEM "-//OASIS//DTD DocBook XML">
+<section lang="en">
+  <title>Terminology</title>
+  <para>
+All terms defined in the CellML Core Specification version 1.2 and the CellML Secondary Specification for Differential Algebraic Equations with Events also apply.
+  </para>
+  <glosslist>
+    <glossentry>
+      <glossterm>Uncertainty</glossterm>
+      <glossdef>
+        <para>
+A lack of information about the exact true value of a variable.
+        </para>
+      </glossdef>
+    </glossentry>
+    <glossentry>
+      <glossterm>Random variable</glossterm>
+      <glossdef>
+        <para>
+          A variable about which there is uncertainty.
+        </para>
+      </glossdef>
+    </glossentry>
+    <glossentry>
+      <glossterm>Distribution of a random variable</glossterm>
+      <glossdef>
+        <para>
+          The set of all possible values for a random variable, along with sufficient information to determine the probability that the random variable takes a particular value, or that it takes a value which is a member of some subset of all possible values.
+        </para>
+      </glossdef>
+    </glossentry>
+    <glossentry>
+      <glossterm>Probability density function (or p.d.f.)</glossterm>
+      <glossdef>
+        <para>
+A function f(x) which specifies the distribution of a continuous random variable such that <math xmlns="http://www.w3.org/1998/Math/MathML">
+ <semantics>
+  <mrow>
+   <mstyle mathvariant="bold">
+    <mrow>
+     <mi>P</mi>
+    </mrow>
+   </mstyle>
+   <mrow>
+    <mrow>
+     <mo stretchy="false">(</mo>
+     <mrow>
+      <mrow>
+       <mrow>
+        <mi>a</mi>
+        <mo stretchy="false">&lt;</mo>
+        <mi>X</mi>
+       </mrow>
+       <mo stretchy="false">&lt;</mo>
+       <mi>b</mi>
+      </mrow>
+     </mrow>
+     <mo stretchy="false">)</mo>
+    </mrow>
+    <mo stretchy="false">=</mo>
+    <mrow>
+     <msubsup>
+      <mo stretchy="false">∫</mo>
+      <mi>a</mi>
+      <mi>b</mi>
+     </msubsup>
+     <mi>f</mi>
+    </mrow>
+   </mrow>
+   <mrow>
+    <mo stretchy="false">(</mo>
+    <mrow>
+     <mi>x</mi>
+    </mrow>
+    <mo stretchy="false">)</mo>
+   </mrow>
+   <mi mathvariant="italic">dx</mi>
+  </mrow>
+ </semantics>
+</math>, where <math xmlns="http://www.w3.org/1998/Math/MathML"><mstyle mathvariant="bold"><mrow><mi>P</mi></mrow></mstyle></math> refers to the probability of events occurring.
+        </para>
+      </glossdef>
+    </glossentry>
+    <glossentry>
+      <glossterm>Probability mass function (or p.m.f.)</glossterm>
+      <glossdef>
+        <para>
+          A function, defined over a discrete probability distribution, which gives the probability of the function taking a particular value.
+        </para>
+      </glossdef>
+    </glossentry>
+    <glossentry>
+      <glossterm>Cumulative density function (or c.d.f.)</glossterm>
+      <glossdef>
+        <para>
+          The function <math xmlns="http://www.w3.org/1998/Math/MathML">
+ <semantics>
+  <mrow>
+   <mi>F</mi>
+   <mrow>
+    <mrow>
+     <mo stretchy="false">(</mo>
+     <mrow>
+      <mi>x</mi>
+     </mrow>
+     <mo stretchy="false">)</mo>
+    </mrow>
+    <mo stretchy="false">=</mo>
+    <mrow>
+     <msubsup>
+      <mo stretchy="false">∫</mo>
+      <mrow>
+       <mrow>
+        <mo stretchy="false">−</mo>
+        <mo stretchy="false">∞</mo>
+       </mrow>
+      </mrow>
+      <mi>x</mi>
+     </msubsup>
+     <mi>f</mi>
+    </mrow>
+   </mrow>
+   <mrow>
+    <mo stretchy="false">(</mo>
+    <mrow>
+     <mi>y</mi>
+    </mrow>
+    <mo stretchy="false">)</mo>
+   </mrow>
+   <mi mathvariant="italic">dy</mi>
+  </mrow>
+ </semantics>
+</math>, where f(y) represents the p.d.f.
+        </para>
+      </glossdef>
+    </glossentry>
+  </glosslist>
+</section>
